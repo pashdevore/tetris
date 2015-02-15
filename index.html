@@ -13,7 +13,7 @@
       <canvas id="gameCanvas" width="320" height="640"></canvas>
     </div>
 
-    <div class="score">
+    <div id="score">
       <p>Lines: <span id="lines"></span></p>
     </div>
 
@@ -241,7 +241,6 @@
       }
 
       function copyData(piece){
-        debugger
         var xPos = piece.gridX;
         var yPos = piece.gridY;
         var state = piece.currentState;
