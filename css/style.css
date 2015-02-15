@@ -3,9 +3,9 @@ body
 	background-color:#000;
 }
 
-#gameboard
+#gameBoard
 {
-	background-color:#8a8a8a;	
+	background-color:#8a8a8a;
 	width:320px;
 	height:640px;
 	margin:0 auto;
