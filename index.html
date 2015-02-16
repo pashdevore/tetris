@@ -38,6 +38,7 @@
       var isGameOver;
       var lineSpan;
       var currentLines;
+      var speed;
 
       //mobile vars
       var touchX;
@@ -125,6 +126,7 @@
 
 
         previousTime = currentTime = 0;
+        speed = 500;
 
         document.onkeydown = getInput;
       }
@@ -216,7 +218,7 @@
       function update(){
         currentTime = new Date().getTime();
 
-        if(currentTime - previousTime > 500){
+        if(currentTime - previousTime > speed){
           //update the game piece
           if(checkMove(currentPiece.gridX, currentPiece.gridY + 1, currentPiece.currentState)){
             currentPiece.gridY += 1;
@@ -294,6 +296,17 @@
 
         if(lineFound){
           lineSpan.innerHTML = currentLines.toString();
+          if(currentLines <= 20){
+            speed = 500;
+          } else if(currentLines <= 40){
+            speed = 400;
+          } else if(currentLines <= 50){
+            speed = 300;
+          } else if(currentLines <= 60){
+            speed = 200;
+          } else if( currentLines <= 70){
+            speed = 100;
+          }
         }
       }
 
