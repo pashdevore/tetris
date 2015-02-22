@@ -17,6 +17,9 @@
       <p>Lines: <span id="lines"></span></p>
     </div>
 
+    <button onclick="initGame()" id="start">Start</button>
+    <button onclick="pauseGame()" id="pause">Pause</button>
+
     <script type="text/javascript" src="js/pieces.js"></script>
     <script type="text/javascript" src="js/bulkImageLoader.js"></script>
     <script type="text/javascript">
@@ -39,6 +42,7 @@
       var lineSpan;
       var currentLines;
       var speed;
+      var paused;
 
       //mobile vars
       var touchX;
@@ -127,6 +131,7 @@
 
         previousTime = currentTime = 0;
         speed = 500;
+        paused = false;
 
         document.onkeydown = getInput;
       }
@@ -179,14 +184,20 @@
         blockImage = imageLoader.getImageAtIndex(0);
         backgroundImage = imageLoader.getImageAtIndex(1);
         gameOverImage = imageLoader.getImageAtIndex(2);
+      }
 
-        initGame();
+      function pauseGame(){
+        paused = !paused;
+        if(paused === false){
+          update();
+        }
       }
 
       function initGame(){
         var r, c;
         currentLines = 0;
         isGameOver = false;
+        paused = false;
 
         if(gameData === undefined){
           gameData = new Array();
@@ -216,29 +227,31 @@
       }
 
       function update(){
-        currentTime = new Date().getTime();
+        if(!paused){
+          currentTime = new Date().getTime();
 
-        if(currentTime - previousTime > speed){
-          //update the game piece
-          if(checkMove(currentPiece.gridX, currentPiece.gridY + 1, currentPiece.currentState)){
-            currentPiece.gridY += 1;
-          } else {
-            copyData(currentPiece);
-            currentPiece = getRandomPiece();
+          if(currentTime - previousTime > speed){
+            //update the game piece
+            if(checkMove(currentPiece.gridX, currentPiece.gridY + 1, currentPiece.currentState)){
+              currentPiece.gridY += 1;
+            } else {
+              copyData(currentPiece);
+              currentPiece = getRandomPiece();
+            }
+
+            //update time
+            previousTime = currentTime;
           }
 
-          //update time
-          previousTime = currentTime;
-        }
+          ctx.clearRect(0, 0, 320, 640);
+          drawBoard();
+          drawPiece(currentPiece);
 
-        ctx.clearRect(0, 0, 320, 640);
-        drawBoard();
-        drawPiece(currentPiece);
-
-        if(isGameOver === false){
-          requestAnimationFrame(update);
-        } else {
-          ctx.drawImage(gameOverImage, 0, 0, 320, 640, 0, 0, 320, 640);
+          if(isGameOver === false){
+            requestAnimationFrame(update);
+          } else {
+            ctx.drawImage(gameOverImage, 0, 0, 320, 640, 0, 0, 320, 640);
+          }
         }
       }
 
