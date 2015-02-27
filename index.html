@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   </head>
   <body>
+    <button onclick="initGame()" id="start">Start</button>
+    <button onclick="pauseGame()" id="pause">Pause</button>
+    
     <div id="gameBoard">
       <canvas id="gameCanvas" width="320" height="640"></canvas>
     </div>
@@ -16,9 +19,6 @@
     <div id="score">
       <p>Lines: <span id="lines"></span></p>
     </div>
-
-    <button onclick="initGame()" id="start">Start</button>
-    <button onclick="pauseGame()" id="pause">Pause</button>
 
     <script type="text/javascript" src="js/pieces.js"></script>
     <script type="text/javascript" src="js/bulkImageLoader.js"></script>
