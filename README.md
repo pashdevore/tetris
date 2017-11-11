@@ -1,6 +1,6 @@
-#Tetris
+# Tetris
 
-###How to Play
+### How to Play
 
 ---
 
